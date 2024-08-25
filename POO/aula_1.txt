@@ -1,0 +1,23 @@
+Eduardo Gonçalves Calabria
+
+Certificação da POO
+
+Java programmer Oracle
+
+4 - pilares da programação
+
+programação imperativa
+POO
+algoritmos e estruturas de dados
+programação concorrente e sistemas distribuídos
+
+Java estruturado
+
+pilares de OO
+
+abstração
+herança
+encapsulamento
+polimorfismo
+
+organização em camadas
