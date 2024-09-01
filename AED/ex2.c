@@ -17,7 +17,7 @@ void enqueue(struct Queue **head, struct Queue **tail, char nomeInserido[]){
     {
         *head=*tail=newNode;
         pacientesAtendidos++;
-
+        
         return;
     }
     (*tail)->next=newNode;//é uma fila
