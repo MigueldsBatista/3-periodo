@@ -1,0 +1,5 @@
+1- São 04 questões, sendo cada questão resolvida por um programa distinto, feito em uma classe distinta. Portanto, o aluno deve entregar 04 arquivos .java. 
+
+2- O nome de cada classe deve ser JavaEstruturado1, JavaEstruturado2, JavaEstruturado3 e JavaEstruturado4 para, respectivamente, as questões 1, 2, 3 e 4. Cada classe deve conter um main, pois trata-se de um programa JAVA. 
+
+3- As saídas no console devem ser rigorosamente iguais às especificadas nos enunciados das questões, bem como os tipos de dados envolvidos nas soluções, pois os programas serão avaliados por testes automatizados, que realizam inferências objetivas e diretas nas saídas do console padrão.

@@ -24,7 +24,7 @@ return;
 void dequeue(struct Queue **head, struct Queue **tail){
     struct Queue *delete=*head;
     if(*head==NULL){
-        printf("Queue is empty!!");
+        return;
     }
     (*head)=(*head)->next;
     free(delete);
@@ -37,37 +37,35 @@ void dequeue(struct Queue **head, struct Queue **tail){
 void printQueue(struct Queue *head) {//Aqui nós não perdemos a referencia de head pois é um ponteiro apenas então nao afeta o conteudo do ponteiro
 
     while (head) {
-        printf("[%d]", head->data);
+        printf("%d", head->data);
         if (head->next) {
-            printf(" -> ");
         }
         head = head->next;
-    }printf(" -> NULL");
-    printf("\n");
+    }
 }
-void intercalarFila(struct Queue *head1, struct Queue *tail1, struct Queue *head2, struct Queue *tail2, struct Queue **head3, struct Queue **tail3){
-    //1 = vez da fila 1
-    //2 = vez da fila 2
+void intercalarFila(struct Queue *head1, struct Queue *head2){
+int vez=0;
 
-    while(head1 || head2){
-        int vez=1;
-       if (vez == 1 && head1) {
-            enqueue(head3, tail3, head1->data);
-            head1 = head1->next;
-            vez = 2;
-        } else if (vez == 2 && head2) {
-            enqueue(head3, tail3, head2->data);
-            head2 = head2->next; 
-            vez = 1;
-        } else if (head1) { // caso uma fila tenha terminado
-            enqueue(head3, tail3, head1->data);
+while(head1 || head2){
+if(head1 && vez==0){
+printf("%d", head1->data);
+head1=head1->next;
+vez=1;
+}
+else if(head2 && vez==1){
+printf("%d", head2->data);
+head2=head2->next;
+vez=0;
+}
+else if (head1) { // Se uma das filas acabar, continua imprimindo da outra
+            printf("%d", head1->data);
             head1 = head1->next;
         } else if (head2) {
-            enqueue(head3, tail3, head2->data);
+            printf("%d", head2->data);
             head2 = head2->next;
         }
-
 }
+
 }
 
 int main(){
@@ -77,8 +75,7 @@ int main(){
     struct Queue *headSegundaFila=NULL;
     struct Queue *tailSegundaFila=NULL;
 
-    struct Queue *headFilaIntercalada=NULL;
-    struct Queue *tailFilaIntercalada=NULL;
+ 
 
     int pessoasPrimeiraFila;
     int pessoasSegundaFila;
@@ -87,21 +84,24 @@ int main(){
     scanf("%d %d %d", &pessoasPrimeiraFila, &pessoasSegundaFila, &caixaVazio);
 
     for(int i=0; i<pessoasPrimeiraFila;i++){
-        printf("DIGITE A PESSOA %d\n", i);
         scanf("%d", &numeroPessoa);
         enqueue(&headPrimeiraFila, &tailPrimeiraFila, numeroPessoa);
     }
     
     for(int i=0; i<pessoasSegundaFila;i++){
-        printf("DIGITE A PESSOA DA SEGUNDA FILA%d\n", i);
         scanf("%d", &numeroPessoa);
         enqueue(&headSegundaFila, &tailSegundaFila, numeroPessoa);
     }
-    intercalarFila(headPrimeiraFila, tailPrimeiraFila, headSegundaFila, tailSegundaFila, &headFilaIntercalada, &tailFilaIntercalada);
 
     printQueue(headPrimeiraFila);
 
     printQueue(headSegundaFila);
-
-    printQueue(headFilaIntercalada);
+    if(caixaVazio==2){
+        intercalarFila(headPrimeiraFila, headSegundaFila);
+    }
+    else if (caixaVazio==1)
+    {
+        intercalarFila(headSegundaFila, headPrimeiraFila);
+    }
+    
 }
