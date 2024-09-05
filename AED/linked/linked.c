@@ -9,6 +9,7 @@ void insert_first(struct Node **head, int data){
     struct Node *new_node = (struct Node*)malloc(sizeof(struct Node));
     new_node->data=data;//steps 
     new_node->next=NULL;
+    
     (*head)=new_node;
 
 }

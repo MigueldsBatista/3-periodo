@@ -31,7 +31,7 @@ void insertOrdered(Node **head, int value){
     // Caso o novo valor deva ser inserido no início da lista
     if(current->data > value){
         newNode->next=current;
-        
+
         current->prev=newNode;
 
         *head=newNode;
@@ -39,7 +39,13 @@ void insertOrdered(Node **head, int value){
 
 
     // Encontrar a posição correta para inserir
+    while (current->next || current->data < value){
+        current=current->next;
+    }
 
+    
+    
+    
     // Encontrar a posição correta para inserir
 
     // Inserir o novo nó na lista
@@ -53,15 +59,19 @@ void insertOrdered(Node **head, int value){
 
 }
 
-void insertFirst(Node **head, int value){
-    Node *newNode=(Node*)malloc(sizeof(Node));
-    newNode->data=value;
-    newNode->next=*head;//proximo é a nossa head atual
-    newNode->prev=NULL;//sempre null pois é o primeiro elemento
-
-    if(*head!=NULL){
-        (*head)->prev=newNode;
-    }
-    *head=newNode;
+void insertIntercalete(Node **head, Node **head2, int value){
     
+
+}
+
+void printNode(Node *head, int target){
+    int before=0;
+    int after=0;
+    while(head){
+        if(head->data!=target){//
+            before++;
+        }
+        head=head->next;
+
+    }
 }
