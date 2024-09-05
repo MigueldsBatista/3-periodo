@@ -17,17 +17,18 @@ return 0;
 }
 
 void insertOrdered(Node **head, int value){
-    Node *newNode=(Node*)malloc(sizeof(Node));
-    newNode->data=value;
-    newNode->next=NULL;
-    newNode->prev=NULL;
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    newNode->prev = NULL;
 
-    if(*head==NULL){//lista vazia
-        *head=newNode;
+    if(*head == NULL){  // Lista vazia
+        *head = newNode; 
         return;
     }
 
-    Node *current=*head;
+    Node *current = *head;
+
     // Caso o novo valor deva ser inserido no início da lista
     if(current->data > value){
         newNode->next=current;
@@ -36,7 +37,6 @@ void insertOrdered(Node **head, int value){
 
         *head=newNode;
     }
-
 
     // Encontrar a posição correta para inserir
     while (current->next || current->data < value){
@@ -49,14 +49,14 @@ void insertOrdered(Node **head, int value){
     // Encontrar a posição correta para inserir
 
     // Inserir o novo nó na lista
+    newNode->next = current->next;
+    newNode->prev = current;
 
-
-    /*    if (current->next != NULL) {
+    if(current->next != NULL) {
         current->next->prev = newNode;
     }
 
-    current->next = newNode;*/
-
+    current->next = newNode;
 }
 
 void insertIntercalete(Node **head, Node **head2, int value){
