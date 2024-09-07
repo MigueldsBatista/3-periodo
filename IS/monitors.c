@@ -2,7 +2,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define PESSOAS_APERTADAS 5
+#define PESSOAS_APERTADAS 10
 
 typedef struct {
     pthread_mutex_t chaveDoBanheiro;//Encapsulamento (Banheiro vai estar bem trancado)
