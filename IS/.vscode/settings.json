@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.html": "django-html",
+        "semaphore.h": "c",
+        "pthread.h": "c"
+    }
+}
