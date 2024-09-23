@@ -23,8 +23,8 @@ public class Main1 {
         int codigoPagamento = scanner.nextInt();
 
         // Usando getByCodigo sem values() para obter o TipoPagamento correto
-        Codigo codigo = Codigo.getByCodigo(codigoPagamento);
-        TipoPagamento pagamento = new TipoPagamento(codigo);
+        //Codigo codigo = Codigo.getByCodigo(codigoPagamento);
+        //TipoPagamento pagamento = new TipoPagamento();
 
         // Leitura dos dados do item de venda
         System.out.println("Digite a quantidade:");
@@ -34,7 +34,7 @@ public class Main1 {
         System.out.println("O item é isento de imposto? (true/false):");
         boolean isentoImposto = scanner.nextBoolean();
 
-        ItemVenda itemVenda = new ItemVenda(produto, pagamento, quantidade, aliquotaImposto, isentoImposto);
+       /*  ItemVenda itemVenda = new ItemVenda(produto, pagamento, quantidade, aliquotaImposto, isentoImposto);
 
         // Cálculo e exibição dos resultados
         System.out.printf("Imposto incidente: %.2f\n", itemVenda.calcularImposto());
@@ -44,6 +44,6 @@ public class Main1 {
         double custoRateado = scanner.nextDouble();
         System.out.printf("Lucro do item: %.2f\n", itemVenda.calcularLucroItem(custoRateado));
 
-        scanner.close();
+        scanner.close();*/
     }
 }
