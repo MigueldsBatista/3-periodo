@@ -1,4 +1,5 @@
 package br.com.cesarschool.poo.titulos.entidades;
+//theme Dark dimmed
 /*
  * Esta classe deve ter os seguintes atributos:
  * entidadeCredito, do tipo EntidadeOperadora
