@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "src/br/com/cesarschool/poo/titulos/repositorios",
+        "src/br/com/cesarschool/poo/titulos/entidades",
+        "src"
+    ]
+}
