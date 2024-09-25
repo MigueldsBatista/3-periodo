@@ -1,4 +1,4 @@
-﻿package com.example.tests;
+package com.example.tests;
 import com.example.CalcularAliquota;
 
 import org.junit.jupiter.api.Test;
