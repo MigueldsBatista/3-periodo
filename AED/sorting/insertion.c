@@ -3,8 +3,11 @@
 #include <stdlib.h>
 #include <time.h>
 int arr={9, 8, 7, 6, 5, 4, 3, 2, 1};
+
 void insertionSort(int arr[], int n){
+
     for(int i=1;i<n;i++){
+        
         int j=i;
 
         while(arr[j] < arr[j-1] && j > 0){

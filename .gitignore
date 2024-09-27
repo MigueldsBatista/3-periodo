@@ -1,0 +1,5 @@
+# Ignorar todas as pastas 'output/' no repositório
+output/
+
+# Ignorar todas as pastas '.vscode/' no repositório
+.vscode/
