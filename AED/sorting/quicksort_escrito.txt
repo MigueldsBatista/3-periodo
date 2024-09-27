@@ -1,0 +1,72 @@
+(__) -> pivot
+
+(~) -> current index
+
+(-) -> pivot index
+
+
+{} element in final position
+
+1 call(start index = 0, end index = 5)
+
+if arr[i] >= pivot then swap
+
+pivotIndex=5
+____                      ~~~~
+[70] [84] [57] [28] [100] [25] no swap
+                          ----
+
+
+____                ~~~~
+[70] [84] [57] [28] [100] [25] swap (25 <-> 100)
+pidx=4                    ----
+
+____           ~~~~
+[70] [84] [57] [28] [25] [100] no swap
+                    ----
+
+____      ~~~~           
+[70] [84] [57] [28] [25] [100] no swap
+                    ----
+
+____ ~~~~
+[70] [84] [57] [28] [25] [100] swap(25 <-> 84)
+pdix=3              ----
+
+____ ~~~~
+[70] [25] [57] [28] [84] [100] no swap
+               ----
+
+[70] [25] [57] [28] [84] [100] final pivot swap(28 <-> 70)
+
+first call result [28] [25] [57] {70} [84] [100]
+
+left arr [28] [25] [57]
+
+right [84] [100]
+
+pivot index = 3
+
+2 call
+start index=0, end index = 2
+
+pivotIdex=2
+
+____      ~~~~
+[28] [25] [57] swap sem efeito(57 <-> 57)
+pidx=1    ----
+
+
+____ ~~~~
+[28] [25] [57] no swap
+     ----
+
+____ ~~~~
+[28] [25] [57] final pivot swap(28 <-> 25)
+     ----
+
+second call result [25] {28} [57] | {70} | [84] [100]
+
+pivotIndex=1
+
+basicamente nos vemos todos os elementos maiores que o pivot e colocamos eles na direita, entao como percorremos todos os elementos, temos certeza que a posição correta do pivot é uma antes do ultimo elemento trocado!!!

@@ -1,64 +1,67 @@
 #include <stdio.h>
+#include <stdlib.h>
+#define TAM 7
 
-/* 
- * Função de ordenação quicksort
- *
- * Parâmetros:
- * arr[]: o array que será ordenado
- * left: o índice esquerdo do array
- * right: o índice direito do array
- */
-void quickSort(int arr[], int left, int right) {
-    // Variáveis para percorrer o array
-    int i = left, j = right;
-    // Variável temporária para troca de elementos
-    int tmp;
-    // Definindo o pivô como o elemento central do array
-    int pivot = arr[(left + right) / 2];
-    
-    // Particionamento do array
-    while (i <= j) {
-        // Avança o índice 'i' até encontrar um elemento maior ou igual ao pivô
-        while (arr[i] < pivot)
-            i++;
-        // Regride o índice 'j' até encontrar um elemento menor ou igual ao pivô
-        while (arr[j] > pivot)
-            j--;
-        // Se os índices ainda não se cruzaram, trocamos os elementos
-        if (i <= j) {
-            // Troca os elementos arr[i] e arr[j]
-            tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-            // Move os índices
-            i++;
-            j--;
-        }
-    }
-        
-    // Recursão para a sublista da esquerda
-    if (left < j) {
-        quickSort(arr, left, j);
-    }
-
-    // Recursão para a sublista da direita
-    if (i < right) {
-        quickSort(arr, i, right);
-    }
-}
+void quicksort(int arr[], int startIndex, int endIndex);
+void swap(int arr[], int i, int j);
+int partition(int arr[], int startIndex, int endIndex);
 
 int main() {
-    // Definição e inicialização do array
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    // Determinando o tamanho do array
-    int n = sizeof(arr) / sizeof(arr[0]);
-    
-    // Chama a função quicksort para ordenar o array
-    quickSort(arr, 0, n - 1);
-    
-    // Imprime o array ordenado
-    for (int i = 0; i < n; i++)
-        printf("%d ", arr[i]);
+  int arr[] = {55, 25, 34, 10, -20, 68, 62};
 
-    return 0;
+  printf("Vetor de Entrada:\n");
+  for (int i = 0; i < TAM; i++)
+    printf("%d ", arr[i]);
+
+  quicksort(arr, 0, TAM - 1);
+
+  printf("\n\nVetor Ordenado:\n");
+  for (int i = 0; i < TAM; i++)
+    printf("%d ", arr[i]);
+
+  return 0;
+}
+//Recebe como parametros o array, startIndex e o endIndex
+void quicksort(int arr[], int startIndex, int endIndex) {
+
+//garante que não vamos fazer besteira e serve de caso base!
+  if (startIndex < endIndex) {
+    
+    int pivotIndex = partition(arr, startIndex, endIndex);
+
+    //chamada recursiva pra organizar os elementos que vem antes do pivot
+    quicksort(arr, startIndex, pivotIndex - 1);
+
+    //chamada recursiva pra organizar os elementos que vem depois do pivot
+    quicksort(arr, pivotIndex + 1, endIndex);
+  }
+}
+
+//Retorna a posição do elemento pivot
+int partition(int arr[], int startIndex, int endIndex) {
+  int pivot, pivotIndex;
+
+  //nessa versão do quicksort escolhemos o primeiro elemento como pivot
+  pivot = arr[startIndex];
+
+  pivotIndex = endIndex;
+
+  for (int i = endIndex; i > startIndex; i--)
+    if (arr[i] >= pivot) {
+      swap(arr, i, pivotIndex);
+      pivotIndex--;
+    }
+
+  // Colocamos o pivô na sua posição final
+  swap(arr, startIndex, pivotIndex);
+
+  //temos certeza de que essa é a posição final do pivot então retornamos seu indice
+  return pivotIndex;
+}
+
+//função auxiliar apenas pra realizar a troca
+void swap(int arr[], int i, int j) {
+  int aux = arr[i];
+  arr[i] = arr[j];
+  arr[j] = aux;
 }
