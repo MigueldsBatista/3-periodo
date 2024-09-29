@@ -11,6 +11,11 @@ void insertFirst(Node **head, int data);
 
 int main(){
 
+Node *head=NULL;
+insertFirst(&head, 1);
+insertFirst(&head, 1);
+insertFirst(&head, 1);
+
 system("clear");
 
 

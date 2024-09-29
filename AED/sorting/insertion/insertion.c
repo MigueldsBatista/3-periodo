@@ -2,11 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-int arr={9, 8, 7, 6, 5, 4, 3, 2, 1};
+
+int arr={5, 3, 2};
 
 void insertionSort(int arr[], int n){
 
-    for(int i=1;i<n;i++){
+
+    for(int i = 1 ; i < n ; i++){
         
         int j=i;
 

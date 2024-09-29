@@ -21,8 +21,8 @@ new_node->next=NULL;
 new_node->data=data;
 
 while(temp->next){
-    temp->next;
-}   temp->data=new_node;
+    temp=temp->next;
+}   temp=new_node;
 }
 
 void insert_middle(struct Node **head, int data, int next_element){
