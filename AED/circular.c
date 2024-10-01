@@ -63,13 +63,15 @@ newNode->data=num;
 newNode->next=*head;
 if(*head==NULL){
     *head=newNode;
-    tail=head;
+    *tail=*head;
     
 }
 
 (*head)=(*head)->next;
+
 (*head)=newNode;
-*tail=head;
+
+*tail=*head;
 
 }
 
