@@ -10,7 +10,7 @@ struct Node *next;
 
 
 //ex (1,2,3,4,5,6,7,8,9,10)
-void multiplicacao(Node *head, Node *tail);
+void multiplicacao(Node *head);
 
 void insertFirst(Node **head, Node **tail, int value) {
     Node *newNode = (Node*)malloc(sizeof(Node));
@@ -26,15 +26,18 @@ void insertFirst(Node **head, Node **tail, int value) {
         (*tail)->next = newNode; // Mantém a circularidade
     }
 }
-void display(Node *head, Node *tail){
+
+void display(Node *head){
 
     if(!head) return;
 
+    Node *walk=head;
     do{
-        printf("%d ->", head->data);
-        head=head->next;
+        printf("%d ->", walk->data);
+        walk=walk->next;
     }
-    while (head!=tail);
+    while (head!=walk);
+    
 printf("\n");
 
     
@@ -49,20 +52,47 @@ int main()
     insertFirst(&head, &tail, 5);
     insertFirst(&head, &tail, 7);
 
-    display(head, tail);
-    multiplicacao(head, tail);
+    display(head);
+    multiplicacao(head);
 }
 
-void multiplicacao(Node *head, Node *tail){
-    int isEven=true;
-    do{
-        isEven=!isEven;
-        if(head==tail && isEven==false){
-            printf("[%d]", head->data*head->data);
-            return;
-        }
-        printf("[%d]", head->data*head->next->data);
+void multiplicacao(Node *head) {
+    if (!head) return; // Verifica se a lista está vazia
 
-        head=head->next->next;
-    }while (head!=tail);
+    Node *walk = head;
+    int isEven = true; // Inicia com true para alternar no primeiro elemento
+    int count = 0;
+
+    // Conta o número de elementos na lista
+    do {
+        count++;
+        walk = walk->next;
+    } while (walk != head);
+
+    walk = head; // Reinicia o ponteiro walk para o início da lista
+
+    // Se a lista tiver apenas 1 elemento, imprime seu quadrado
+    if (count == 1) {
+        printf("[%d] ", head->data * head->data); // Elevando ao quadrado
+        printf("\n"); // Nova linha após a multiplicação
+        return;
+    }
+
+    //[1] [2] [3] [4]
+    // Multiplicação de pares
+    do {
+        if (isEven) {
+            printf("[%d] ", walk->data * walk->next->data); // Multiplica o elemento atual com o próximo
+        }
+        isEven = !isEven; // Alterna entre verdadeiro e falso
+        walk = walk->next; // Avança para o próximo elemento
+    } while (walk != head);
+
+    // Se a lista tem um número ímpar de elementos, trata o último
+    if (!isEven) {
+        // walk agora é o último elemento da lista
+        printf("[%d] ", walk->data * walk->data); // Eleva o último elemento ao quadrado
+    }
+
+    printf("\n"); // Nova linha após as multiplicações
 }
