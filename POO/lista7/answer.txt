@@ -1,0 +1,47 @@
+QUIZZ sobre JAVA e POO – 1a unidade
+Responda às seguintes perguntas:
+1- Qual é a palavra reservada em JAVA que define um tipo primitivo inteiro de 64 bits?
+long
+
+2- Responda com uma palavra. Que elemento de uma linguagem OO serve como
+molde para objetos, e define um tipo dentro da linguagem?
+
+
+3- Qual é a palavra reservada em JAVA que caracteriza uma relação de herança?
+extends
+
+4- Responda V ou F, classificando a afirmativa:
+
+a relação de herança entre classes estabelece para a classe filha (ou subclasse) dois “direitos” e uma “obrigação”:
+
+toda classe filha tem os métodos e atributos da classe mãe, toda classe filha tem
+o mesmo tipo da classe mãe, toda classe filha tem a obrigação de chamar o
+construtor da classe mãe no seu construtor. 
+V
+
+5- Qual é a palavra reservada em JAVA que define visibilidade de um método ou de
+um atributo na mesma sub hierarquia ou no mesmo pacote?
+protected
+
+6- Responda com uma palavra. Que conceito em JAVA representa um agrupamento
+de classes correlatas?
+package?
+
+7- Responda V ou F, classificando a afirmativa: a presença de um modificador static
+associado a um atributo muda o seu escopo, que passa a ser de objeto, em vez de
+ser de classe.
+Falso
+
+8- Qual é a palavra reservada em JAVA que define um modificador de acesso capaz
+de impedir que uma classe seja herdada por outras classes?
+private
+
+9- Responda V ou F, classificando a afirmativa: quando invocamos o método
+toLowerCase() a partir de uma variável do tipo String, que referencia um objeto do
+tipo String com conteúdo “JavA”, tal objeto tem seu conteúdo alterado para “java”.
+Falso
+
+10- Em JAVA, qual é o nome do atributo, presente em todo array, que tem como valor a
+quantidade de ocorrências do array?
+length
+

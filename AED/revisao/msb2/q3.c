@@ -11,6 +11,7 @@ Protótipo da função: void troca(Node **head1, Node **tail1, Node **head2, Nod
 #include <stdlib.h>
 #include <malloc.h>
 
+
 typedef struct Node{
 int data;
 struct Node *next;
@@ -38,13 +39,34 @@ void insertFirst(Node **head, Node**tail, int value){
 
 }
 
+void insertLast(Node **head, Node **tail, int value){
+    if(*head==NULL){
+        insertFirst(head, tail, value);
+        return;
+    }
+    Node *newNode=(Node*)malloc(sizeof(Node));
+    newNode->data=value;
+    newNode->next=*head;
+    // [1] [3] [5] [2]
+    (*head)->prev=newNode;
+    (*tail)->next=newNode;
+    
+
+    
+    
+
+}
+
 void switchFirstElement(Node **head1, Node **head2){
     //preciso fazer 4 atualizações
     if(*head1==NULL || head2==NULL) return;
 
-    int temp=(*head1)->data;
+    Node *temp=(*head1);
+    
     (*head1)->data=(*head2)->data;
     (*head2)->data=temp;
+
+
 
 }
 void display(Node *head){

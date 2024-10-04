@@ -27,6 +27,12 @@ void swap(int *arr, int i, int j){
     arr[i]=arr[j];
     arr[j]=aux;
 }
+
+    /*
+    *   Função que implementa o algoritmo de ordena o por insertion,
+    *   recebe como par metro um vetor de inteiros e o seu tamanho
+    *   n o retorna valor, pois ordena o vetor na propria função
+    */
 void insertion(int *arr, int n){
 
     for(int i=1;i < n;i++){

@@ -7,17 +7,23 @@ void bubble(int *arr, int n);
 void swap(int *arr, int i, int j);
 
 int main(){
+
     int *arr=(int*)malloc(sizeof(int)*SIZE);
 
     for (int i = 0; i < SIZE; i++) {
+
         arr[i] = rand() % 101; // Gera números de 0 a 100
+
         printf("Valor gerado: %d\n", arr[i]);
+
     }
+
     bubble(arr, SIZE);
 
     for(int i=0;i<SIZE;i++){
         printf("[%d]", arr[i]);
     }
+        
     return 0;
 }
 
