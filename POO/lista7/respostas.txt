@@ -5,7 +5,7 @@ long
 
 2- Responda com uma palavra. Que elemento de uma linguagem OO serve como
 molde para objetos, e define um tipo dentro da linguagem?
-
+classe
 
 3- Qual é a palavra reservada em JAVA que caracteriza uma relação de herança?
 extends
@@ -25,7 +25,7 @@ protected
 
 6- Responda com uma palavra. Que conceito em JAVA representa um agrupamento
 de classes correlatas?
-package?
+package
 
 7- Responda V ou F, classificando a afirmativa: a presença de um modificador static
 associado a um atributo muda o seu escopo, que passa a ser de objeto, em vez de
