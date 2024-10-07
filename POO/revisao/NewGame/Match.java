@@ -11,6 +11,9 @@ public static void main(String[] args) {
 
     lista.encaixar(DominoPiece.THREE_THREE, MetodoEncaixe.HEAD_UP);
 
+    lista.encaixar(DominoPiece.SIX_SIX, MetodoEncaixe.HEAD_UP);
+    
+
     
 }   
 

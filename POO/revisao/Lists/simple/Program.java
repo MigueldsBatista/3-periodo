@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Program {
 public static void main(String[] args) {
-    LinkedList<Integer> list = new LinkedList<Integer>();
+    LinkedList list = new LinkedList();
     final Scanner ENTRADA = new Scanner(System.in);
     int op;
     int num;
@@ -17,6 +17,7 @@ public static void main(String[] args) {
         System.out.println("4- Deletar no início");
         System.out.println("5- Deletar no final");
         System.out.println("6- Deletar X");
+        System.out.println("7- Inserir Ordenado");
 
         //delete
         System.out.println("0- Sair");
@@ -35,7 +36,7 @@ public static void main(String[] args) {
                 list.insertFirst(num);
                 break;
             case 4:
-
+                
                 list.deleteFirst();
                 break;
             case 5:
@@ -45,8 +46,12 @@ public static void main(String[] args) {
             case 6:
             num=ENTRADA.nextInt();
             list.deleteX(num);
+                break;
+            case 7:
+            num=ENTRADA.nextInt();
+            list.insertOrdered(num);
             default:
-            
+                System.out.println("Opção inválida\n");
                 break;
         }
 

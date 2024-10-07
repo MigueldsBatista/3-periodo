@@ -1,9 +1,9 @@
 package Lists.simple;
 
-public class LinkedList<Integer> {
-Node <Integer> head;
+public class LinkedList{
+Node head;
 
-LinkedList(Integer headData){
+LinkedList(int headData){
 this.head.setData(headData);
 head.setNext(null);
 
@@ -11,33 +11,52 @@ head.setNext(null);
 LinkedList(){
 
 }
-public void insertFirst(Integer value){
-Node<Integer> newNode = new Node<Integer>();
+public void insertFirst(int value){
+Node newNode = new Node();
 newNode.setData(value);
 newNode.setNext(head);
 head=newNode;
 }
 
-public void insertLast(Integer value){
-Node<Integer> newNode = new Node<Integer>();
+public void insertLast(int value){
+Node newNode = new Node();
 newNode.setData(value);
 newNode.setNext(null);
 
-Node<Integer> walk=head;
+Node walk=head;
 while(walk.getNext()!=null){
     walk=walk.getNext();
 }
 walk.setNext(newNode);
 }
-public void insertOrdered(Integer value){
-    Node<Integer> newNode = new Node<>();
-    newNode.setData(value);
-    Node<Integer> walk=head;
 
-    while (walk.getNext()!=null && Integer.valueOf(value) < walk.getNext().getData() ) {
-        
+public void insertOrdered(int value){
+    if(head==null){
+        insertFirst(value);
+        return;
     }
+    Node newNode = new Node();
+    newNode.setData(value);
+
+    if(head.getData() > value){
+        insertFirst(value);
+        return;
+    }
+    Node walk=head;
+    
+    while (walk.getNext()!=null && value > walk.getNext().getData() ) {
+        walk=walk.getNext();
+    }
+    if(walk.getNext()==null){
+        insertLast(value);
+        return;
+    }
+
+    newNode.setNext(walk.getNext());
+    walk.setNext(newNode);
+    // [3] -> [5] -> [7]
 }
+
 public void deleteFirst(){
     if(head==null) return;
 
@@ -52,8 +71,8 @@ public void deleteLast(){
         return;
     }
 
-    Node<Integer> walk=head;
-    Node<Integer> prev = null;
+    Node walk=head;
+    Node prev = null;
 
     while (walk.getNext()!=null) { // Caminha até o penúltimo nó
         prev = walk;
@@ -61,7 +80,7 @@ public void deleteLast(){
     }
     prev.setNext(null); // Remove a referência para o último nó
 }
-public void deleteX(Integer value){
+public void deleteX(int value){
     if(head==null) return;
 
     if(head.getData()==value) {
@@ -69,7 +88,7 @@ public void deleteX(Integer value){
         return;
     }
 
-    Node<Integer> walk=head;
+    Node walk=head;
 
     while(walk.getNext()!=null && walk.getNext().getData()!=value){
         walk=walk.getNext();
@@ -87,7 +106,7 @@ public void deleteX(Integer value){
 }
 public void display(){
     if(head==null) return;
-    Node<Integer> walk=head;
+    Node walk=head;
     while(walk!=null){
         System.out.print(walk);
         walk=walk.getNext();

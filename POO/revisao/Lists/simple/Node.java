@@ -1,25 +1,25 @@
 package Lists.simple;
 
-public class Node<Integer> {
-private Integer data;
-private Node<Integer> next;
+public class Node {
+private int data;
+private Node next;
 
-public Integer getData() {
+public int getData() {
     return data;
 }
 
-public void setData(Integer data) {
+public void setData(int data) {
     this.data = data;
 }
 
-public Node<Integer> getNext() {
+public Node getNext() {
     return next;
 }
 
-public void setNext(Node<Integer> next) {
+public void setNext(Node next) {
     this.next = next;
 }
-Node(Integer data, Node<Integer> next){
+Node(int data, Node next){
 this.data=data;
 this.next=next;
 }
