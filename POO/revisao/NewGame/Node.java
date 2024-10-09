@@ -12,7 +12,6 @@ Node(){
 
 }
 
-
 public Integer getData() {
     return data;
 }

@@ -12,7 +12,6 @@ int main(){
 
     for (int i = 0; i < SIZE; i++) {
         arr[i] = rand() % 101; // Gera números de 0 a 100
-        printf("Valor gerado: %d\n", arr[i]);
     }
     bubble(arr, SIZE);
 
@@ -33,8 +32,8 @@ void bubble(int *arr, int n){
     //versão mais aprimorada
     while(i < n && troca == 1){
         troca=0;
-        for(int j = n-1; j > i ; j++){
-            if(arr[j]>arr[j+1]){
+        for(int j = 0; j < n-1 ; j++){
+            if(arr[j] > arr[j+1]){
                 swap(arr, j, j+1);
                 troca=1;
             }

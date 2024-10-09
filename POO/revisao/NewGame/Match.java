@@ -4,6 +4,7 @@ package NewGame;
 public class Match {
 public static void main(String[] args) {
     LinkedList lista = new LinkedList();
+    
     lista.iniciarPartida(DominoPiece.FOUR_FIVE);
     System.out.println(lista.getHead());
 
