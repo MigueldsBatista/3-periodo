@@ -47,21 +47,23 @@ void displayInOrder(Node *root);
 void displayPostOrder(Node *root);
 void displayPreOrder(Node *root);
 
+static int flag=0;
 
 int main(){
 Node *root=NULL;
 
 insertInOrder(&root, 3);
+insertInOrder(&root, 1);
 insertInOrder(&root, 4);
+insertInOrder(&root, 2);
 insertInOrder(&root, 5);
-insertInOrder(&root, 7);
-insertInOrder(&root, 8);
-insertInOrder(&root, 9);
-insertInOrder(&root, 10);
+
 
 displayPreOrder(root);
 printf("\n");
+flag=1;
 displayInOrder(root);
+flag=1;
 printf("\n");
 displayPostOrder(root);
 printf("\n");
@@ -72,8 +74,12 @@ return 0;
 
 void displayInOrder(Node *root){
 if(root!=NULL){
-    printf("%d - ", root->data);
+    if (flag==0){
+        printf("Root: %d\n", root->data);
+        flag=1;
+    }
     displayInOrder(root->left);
+    printf("%d - ", root->data);
     displayInOrder(root->right);
 }
 }
@@ -81,9 +87,14 @@ if(root!=NULL){
 void displayPreOrder(Node *root){
 
 if(root!=NULL){
+    if (flag==0){
+        printf("Root: %d\n", root->data);
+        flag=1;
+        return;
+    }
+    printf("%d -", root->data);
     displayPreOrder(root->left);
     displayPreOrder(root->right);
-    printf("%d -", root->data);
 }
 
 }
@@ -91,33 +102,63 @@ if(root!=NULL){
 void displayPostOrder(Node *root){
 
 if(root!=NULL){
+        if (flag==0){
+        printf("Root: %d\n", root->data);
+        flag=1;
+    }
     displayPostOrder(root->left);
-    printf("%d -", root->data);
     displayPostOrder(root->right);
-    
+    printf("%d -", root->data);
 }
 
 }
 
 void insertInOrder(Node **root, int data){
     if(*root==NULL){
+        if(flag==0){
+            printf("Root: %d\n", data);
+            flag=1;
+        }
         (*root)=(Node*)malloc(sizeof(Node));
         (*root)->data=data;
         (*root)->left=NULL;
         (*root)->right=NULL;
-        printf("Node %d inserted!\n", (*root)->data);
         return;
     }
 
-    if((*root)->data < data){
+    if(data < (*root)->data){
         insertInOrder(&(*root)->left, data);
+        printf("Node %d inserted at left!\n", (*root)->data);
         return;
     }
     
-    else if((*root)->data > data){
+    else if(data > (*root)->data){
         insertInOrder(&(*root)->right, data);
+        printf("Node %d inserted at right!\n", (*root)->data);
         return;
-
     }
     //desconsideramos aqui o caso onde eles são iguais
 }
+
+
+//3) Crie uma função (recursiva) que retorne o nó que apresentar a chave de maior valor na árvore
+Node* findMax(Node *root) {
+    if (root == NULL) {
+        return NULL;
+    }
+    if (root->right == NULL) {
+        return root;
+    }
+    return findMax(root->right);
+}
+
+/*
+01 - Crie uma função em C que indique a altura de uma árvore.
+
+
+02 - Considere a função de remoção de nós e explique todo o trecho de código que trata do caso de remoção quando o nó:
+a) não tem filhos
+b) tem apenas um dos filhos
+c) tem os dois filhos
+
+*/
