@@ -111,17 +111,13 @@ void insertInOrder(Node **root, int data){
         return;
     }
 
-    if((*root)->data < data){
+    if((*root)->data > data){
         insertInOrder(&(*root)->left, data);
-        return;
     }
-    
-    else if((*root)->data > data){
+    else if((*root)->data < data){
         insertInOrder(&(*root)->right, data);
-        return;
-
     }
-    //desconsideramos aqui o caso onde eles são iguais
+    // desconsideramos aqui o caso onde eles são iguais
 }
 int findMax(Node *root) {
     if (root == NULL) {

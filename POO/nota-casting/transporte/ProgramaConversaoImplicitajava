@@ -1,0 +1,30 @@
+
+public class ProgramaConversaoImplicita2 {
+    public static void main(String[] args) {
+        
+        MeioTransporte meio1 = new Carroca();
+        
+        // Erro 1: Tentativa de conversão implícita de superclasse para subclasse
+       // Carroca carroca1 = meio1; // ERRO: meio1 é do tipo MeioTransporte, e Java não permite conversão implícita de superclasse para subclasse.
+        
+        Aviao a1 = new Aviao();
+        Aereo ae1 = a1; // Válido, pois é uma conversão de subclasse (Aviao) para superclasse (Aereo).
+        
+        Aviao a2 = new Aviao();
+        //a2 = ae1; // ERRO: ae1 é do tipo Aereo, e Java não permite atribuir uma superclasse a uma subclasse diretamente.
+        
+        //Carro ca1 = carroca1; // ERRO: carroca1 não é um Carro, mas uma Carroca, então a conversão é inválida.
+        
+        Terrestre t1 = new Carro(); // Válido, pois é uma conversão de subclasse (Carro) para superclasse (Terrestre).
+        
+        //Carro ca2 = meio1; // ERRO: meio1 é do tipo MeioTransporte, e não necessariamente é do tipo Carro, logo a conversão é inválida.
+        
+        //t1 = a1; // ERRO: a1 é do tipo Aviao (Aereo), e não pode ser convertido para Terrestre.
+        
+        meio1 = ae1; // Válido, pois ae1 é do tipo Aereo, que é uma subclasse de MeioTransporte.
+        
+        ae1 = a2; // Válido, pois a2 é do tipo Aviao, uma subclasse de Aereo.
+        
+        //ae1 = new Carroca(); // ERRO: Carroca é um Terrestre, e não pode ser atribuído a uma variável do tipo Aereo.
+    }
+}
