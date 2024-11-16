@@ -42,7 +42,7 @@ int data;
 }Node;
 
 void insertInOrder(Node **root, int data);
-
+int getLevel(Node **root);
 void displayInOrder(Node *root);
 void displayPostOrder(Node *root);
 void displayPreOrder(Node *root);
@@ -67,6 +67,8 @@ flag=1;
 printf("\n");
 displayPostOrder(root);
 printf("\n");
+
+printf("Altura: %d\n", getLevel(&root));
 
 
 return 0;
@@ -139,26 +141,91 @@ void insertInOrder(Node **root, int data){
     }
     //desconsideramos aqui o caso onde eles são iguais
 }
-
-
-//3) Crie uma função (recursiva) que retorne o nó que apresentar a chave de maior valor na árvore
-Node* findMax(Node *root) {
+int findMax(Node *root) {
     if (root == NULL) {
-        return NULL;
+        printf("The tree is empty.\n");
+        return -1; // Assuming all node values are positive
     }
+
     if (root->right == NULL) {
-        return root;
+        return root->data;
     }
+
     return findMax(root->right);
 }
 
+
+int busca(Node *root, int target){
+    if(root->data==target){
+        return 1;
+    }
+    else if (root==NULL){
+        return 0;
+    }
+    else if(root->data < target){
+        busca(root->right, target);
+    }
+    else{
+        busca(root->left, target);
+    }
+}
+
 /*
-01 - Crie uma função em C que indique a altura de uma árvore.
+Nó não possui filhos
+    - Se o nó a ser removido não possui filhos (é uma folha), 
+    basta liberar a memória alocada para esse nó e ajustar o ponteiro do pai para NULL.
+
+Nó possui um filho unico
+    - Se o nó a ser removido possui um único filho, o ponteiro do pai do nó a ser removido deve ser ajustado para apontar para o filho do nó a ser removido. 
+    Em seguida, liberar a memória alocada para o nó removido.
+
+Nó possui dois filhos
+    - Se o nó a ser removido possui dois filhos, deve-se encontrar o sucessor in-order (o menor nó na subárvore direita) ou o predecessor in-order (o maior nó na subárvore esquerda). 
+    Copiar o valor do sucessor ou predecessor para o nó a ser removido e, em seguida, remover o sucessor ou predecessor, que terá no máximo um filho.
 
 
-02 - Considere a função de remoção de nós e explique todo o trecho de código que trata do caso de remoção quando o nó:
-a) não tem filhos
-b) tem apenas um dos filhos
-c) tem os dois filhos
-
+    Esquerda Vão os menores e direita Maiores
 */
+
+int travelRight(Node *root, int level){
+   if(root->right==NULL){
+    return level++;
+   }
+   else{
+    travelRight(root->right, level++);
+   } 
+}
+
+int travelLeft(Node *root, int level){
+   if(root->left==NULL){
+    return level++;
+   }
+   else{
+    travelLeft(root->left, level++);
+   } 
+}
+/**
+ * @brief Calculates the height of a binary tree.
+ *
+ * This function computes the height (or level) of a binary tree recursively.
+ * The height of a binary tree is the number of edges on the longest path from 
+ * the root node to a leaf node. An empty tree has a height of -1.
+ *
+ * @param root A double pointer to the root node of the binary tree.
+ * @return The height of the binary tree. Returns -1 if the tree is empty.
+ */
+
+int getLevel(Node **root){
+
+    if(*root==NULL) return -1;
+
+    int alturaEsquerda = getLevel(&(*root)->left);
+    int alturaDireita = getLevel(&(*root)->right);
+
+    if(alturaEsquerda > alturaDireita){
+        return alturaEsquerda + 1;
+
+    }else{
+        return alturaDireita + 1;
+    }
+}
