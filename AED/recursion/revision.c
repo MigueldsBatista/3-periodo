@@ -44,3 +44,7 @@ int main(){
     printf("%d", arraySum(arr, n));
     return 0;
 }
+
+clear
+ cd /home/miguel/3-periodo/IHW/MIPS ; /usr/bin/env /bin/python3 /home/miguel/.vscode-server/extensions/ms-python.debugpy-2024.13.2024103001-linux-x64/bundled/libs/debugpy/adapter/../../debugpy/launcher 60847 -- /home/miguel/3-periodo/IHW/MIPS/recursion.py 
+
