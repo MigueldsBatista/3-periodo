@@ -4,8 +4,8 @@ output: .word 0
 
 .text
 main:
-    li $v0, 4               # Imprime a string do prompt
     la $a0, prompt
+    li $v0, 4               # Imprime a string do prompt
     syscall
 
     li $v0, 5               # Lê um número inteiro
@@ -24,7 +24,6 @@ main:
     syscall
 
 # Função Fibonacci Recursiva
-.globl fib
 fib:
     addi $sp, $sp, -12      # Aloca espaço na pilha
     sw $ra, 0($sp)          # Salva o endereço de retorno
