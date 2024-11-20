@@ -8,6 +8,9 @@ Conquista
 
 Combinação: intercalar as duas subsequencias ordenadas pra produzir a solução
 */
+#include <stdlib.h>
+#include <stdio.h>
+
 #define SIZE 10
 
 void mergesort(int arr[], int startIndex, int endIndex);
@@ -31,45 +34,70 @@ int main() {
 }
 
 
+
+
+
 void mergesort(int arr[], int startIndex, int endIndex){
+    //caso base INICIO > FIM
     if (startIndex > endIndex) return;
         
+    //pega o meio do array
     int mid = (startIndex + endIndex) / 2;
     
-    mergesort(startIndex, mid, arr);
-    mergesort(mid + 1, endIndex, arr);
+    //inicia chamada recursiva pros elementos a esquerda
+    mergesort(arr, startIndex, mid);
+    //inicia uma chamada recursiva pros elementos a direita
+    mergesort(arr, mid + 1, endIndex);
     
+
     merge(arr, startIndex, mid, endIndex);
     
-}
+}   
+
 
 void merge(int arr[], int startIndex, int mid, int endIndex){
-    int inicio_v01=startIndex;
-    int inicio_v02=mid+1;
-    int posLivre=0;
+//      ~      _     -
+    // (4, 7, 2) (5 ,1)
+    // Representa o início da primeira parte do array a ser mesclado
+    int inicio_v01 = startIndex;
 
-    int aux[SIZE];
+    // Representa o início da segunda parte do array (após o meio)
+    int inicio_v02 = mid + 1;
 
-    while(inicio_v01 <= mid && inicio_v02 <= endIndex){
-        if(arr[inicio_v01] <= arr[inicio_v02]){
-            aux[posLivre++] = arr[inicio_v01++];
+    // Posição livre no array auxiliar, onde serão armazenados os elementos ordenados
+    int newIndex = 0;
+
+    // Array auxiliar para armazenar os elementos mesclados temporariamente
+    int newArr[SIZE];
+
+    // Combina os elementos das duas partes ordenadas do array original
+    while (inicio_v01 <= mid && inicio_v02 <= endIndex) {
+
+        // Se o elemento da primeira parte for menor ou igual ao da segunda parte
+        if (arr[inicio_v01] <= arr[inicio_v02]) {
+            newArr[newIndex++] = arr[inicio_v01++]; // Adiciona o elemento da primeira parte no array auxiliar
+            //obs so incrementa o indice atual caso seja adicionado, caso contrario comparamos ele com o proximo do outro array
+        } else {
+            newArr[newIndex++] = arr[inicio_v02++]; // Adiciona o elemento da segunda parte no array auxiliar
+            //obs so incrementa o indice atual caso seja adicionado, caso contrario comparamos ele com o proximo do outro array
         }
-        else{
-
-            aux[posLivre++] = arr[inicio_v02];
-
-        }
     }
 
-
-    while(inicio_v01 <= mid){
-        aux[posLivre++] = arr[inicio_v01++];
+    // Adiciona os elementos caso a lista da direita tenha acabado primeiro
+    while (inicio_v01 <= mid) {
+        newArr[newIndex++] = arr[inicio_v01++];
     }
 
-    while(inicio_v02 <= endIndex){
-        aux[posLivre++] = arr[inicio_v02];
+    // Adiciona os elementos caso a lista da esquerda tenha acabado primeiro
+    while (inicio_v02 <= endIndex) {
+        newArr[newIndex++] = arr[inicio_v02++];
     }
 
-    for(inicio_v01 = startIndex ; inicio_v01 <= endIndex; inicio_v01++){
-        arr[inicio_v01]= aux[inicio_v01-startIndex];
+    // Copia os elementos do array auxiliar de volta para o array original
+    for (inicio_v01 = startIndex; inicio_v01 <= endIndex; inicio_v01++) {
+        arr[inicio_v01] = newArr[inicio_v01 - startIndex]; 
+        // `inicio_v01 - startIndex` ajusta o índice relativo ao array auxiliar
+        //ex no inicio os dois são iguais então é zero
+        // dps inicio v01 aumenta ai fica 1, dps 2 e assim sucessivamente
     }
+}

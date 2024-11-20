@@ -1,8 +1,8 @@
-(__) -> pivot
+( __ ) -> pivot
 
-(~) -> current index
+( ~~ ) -> current index
 
-(-) -> pivot index
+( -- ) -> pivot index "Este índice percorre a lista comparando os elementos dela com o pivot
 
 
 {} element in final position
