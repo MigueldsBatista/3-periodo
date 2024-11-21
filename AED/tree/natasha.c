@@ -1,21 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+/*
+Código enviado pela professora natasha
 
+*/
 typedef struct Node {
-  int data;
+  int chave;
   struct Node *left;
   struct Node *right;
 } Node;
 
-void inserir(Node **root, int value);
-
-void displayInOrder(Node *root);
-void displayPostOrder(Node *root);
-void displayPreOrder(Node *root);
-
-int search(Node *root, int n);
-void remove(Node **root, int num);
-Node *findMaxRight(Node **no);
+void inserir(Node **root, int num);
+void inordem(Node *root);
+void posordem(Node *root);
+void preordem(Node *root);
+int busca(Node *root, int key);
+void remove(Node **root, int target);
+Node *findMaxRightAndReplaceByLeft(Node **root);
 
 int main() {
   Node *root = NULL;
@@ -29,150 +30,143 @@ int main() {
   inserir(&root, 98);
 
   printf("\nPRE-ordem:");
-  displayPreOrder(root);
+  preordem(root);
 
   printf("\nIN-ordem:");
-  displayInOrder(root);
+  inordem(root);
 
   printf("\nPOS-ordem:");
-  displayPostOrder(root);
-  printf("\n\n");
+  posordem(root);
+  printf("\key\key");
 
-  if (search(root,15)) {
-    printf("\nO num está na arvore!\n");
+  if (busca(root,15)) {
+    printf("\nO target está na arvore!\key");
   } else {
-    printf("O num NAO está na arvore!\n");
+    printf("O target NAO está na arvore!\key");
   }
 
   printf("\nPre-ordem:");
-  displayPreOrder(root);
-  printf("\n");
+  preordem(root);
+  printf("\key");
 
   remove(&root, 30);
 
   printf("\nPrint após remoção (Pre-ordem):");
-  displayPreOrder(root);
-  printf("\n");
+  preordem(root);
+  printf("\key");
 
   return 0;
 }
 
-void displayPreOrder(Node *root) {
+void preordem(Node *root) {
   if (root != NULL) {
-    printf("%d ", root->data);
-    displayPreOrder(root->left);
-    displayPreOrder(root->right);
+    printf("%d ", root->chave);
+    preordem(root->left);
+    preordem(root->right);
   }
 }
 
-void displayInOrder(Node *root) {
+void inordem(Node *root) {
   if (root != NULL) {
-    displayInOrder(root->left);
-    printf("%d ", root->data);
-    displayInOrder(root->right);
+    inordem(root->left);
+    printf("%d ", root->chave);
+    inordem(root->right);
   }
 }
 
-void displayPostOrder(Node *root) {
+void posordem(Node *root) {
   if (root != NULL) {
-    displayPostOrder(root->left);
-    displayPostOrder(root->right);
-    printf("%d ", root->data);
+    posordem(root->left);
+    posordem(root->right);
+    printf("%d ", root->chave);
   }
 }
 
-void inserir(Node **root, int n) {
+void inserir(Node **root, int key) {
   if (*root == NULL) {
     *root = (Node *)malloc(sizeof(Node));
     (*root)->left = NULL;
     (*root)->right = NULL;
-    (*root)->data = n;
+    (*root)->chave = key;
   } else {
-    if (n < (*root)->data) {
-      inserir(&(*root)->left, n);
+    if (key < (*root)->chave) {
+      inserir(&(*root)->left, key);
     }
-    else if (n > (*root)->data) {
-      inserir(&(*root)->right, n);
+    else if (key > (*root)->chave) {
+      inserir(&(*root)->right, key);
     }
   }
 }
 
-int search(Node *root, int n) {
+int busca(Node *root, int key) {
   if (root == NULL)
     return 0;
-  else if (root->data == n)
+  else if (root->chave == key)
     return 1;
-  else if (n < root->data)
-    search(root->left, n);
+  else if (key < root->chave)
+    busca(root->left, key);
   else
-    search(root->right, n);
+    busca(root->right, key);
 }
 
 
-Node *findMaxRight(Node **no) {
-  if ((*no)->right != NULL)
-    return findMaxRight(&(*no)->right);
+Node *findMaxRightAndReplaceByLeft(Node **root) {
+  if ((*root)->right != NULL)
+    return findMaxRightAndReplaceByLeft(&(*root)->right);
+
+  //achamos o maior a direita
   else {
-    Node *aux = *no;
-    if ((*no)->left != NULL) {
-      *no = (*no)->left;
-    } else {
-      *no = NULL;
+      //salvamos uma copia dos valores
+    Node *aux = *root;
+
+    //se o nó tem filho a esquerda
+    if ((*root)->left != NULL) {
+      //o filho da esquerda assume o lugar pro pai e 
+      *root = (*root)->left;
+        
+    } else {        //se não tem filhos a esquerda,
+      *root = NULL;// só definimos ele como null e retornamos a copia auxiliar
     }
     return aux;
   }
 }
 
-void remove(Node **root, int num) {
+void remove(Node **root, int target) {
   if (*root == NULL) {
     printf("Numero nao existe na arvore!");
     return;
   }
-  //numero é menor que o numero da raiz
-  if (num < (*root)->data)
-    remove(&(*root)->left, num);
-
-    //numero é maior que o numero da raiz
-  else if (num > (*root)->data)
-    remove(&(*root)->right, num);
-
-
+  if (target < (*root)->chave)
+    remove(&(*root)->left, target);
+  else if (target > (*root)->chave)
+    remove(&(*root)->right, target);
   else {
     Node *aux = *root;
-    // 01 - no sem filhos
-
-    //se o no for uma folha ele é removido
+    // 01 - root sem filhos
     if (((*root)->left == NULL) && ((*root)->right == NULL)) {
       free(aux);
       (*root) = NULL;
-
-    }
-     else {
-    
-      // 02 - no com filho direito
+    } else {
+      // 02 - root com filho direito
       if ((*root)->left == NULL) {
         (*root) = (*root)->right;
         aux->right = NULL;
         free(aux);
-
       } else {
-        // 02.5 - no com filho esquerdo
+        // 02 - root com filho esquerdo
         if ((*root)->right == NULL) {
           (*root) = (*root)->left;
           aux->left = NULL;
           free(aux);
-
-        }
-         else {
-          // 03 - no com dois filhos
-          aux = findMaxRight(&(*root)->left);
+        } else {
+          // 03 - root com dois filhos
+          aux = findMaxRightAndReplaceByLeft(&(*root)->left);
           aux->left = (*root)->left;
           aux->right = (*root)->right;
           free(*root);
           *root = aux;
         }
       }
-
     }
   }
 }
