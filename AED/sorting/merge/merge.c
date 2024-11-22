@@ -8,6 +8,9 @@ Conquista
 
 Combinação: intercalar as duas subsequencias ordenadas pra produzir a solução
 */
+#include <stdlib.h>
+#include <stdio.h>
+
 #define SIZE 10
 
 void mergesort(int arr[], int startIndex, int endIndex);
@@ -36,8 +39,8 @@ void mergesort(int arr[], int startIndex, int endIndex){
         
     int mid = (startIndex + endIndex) / 2;
     
-    mergesort(startIndex, mid, arr);
-    mergesort(mid + 1, endIndex, arr);
+    mergesort(arr, startIndex, mid);
+    mergesort(arr, mid + 1, endIndex);
     
     merge(arr, startIndex, mid, endIndex);
     
@@ -55,7 +58,6 @@ void merge(int arr[], int startIndex, int mid, int endIndex){
             aux[posLivre++] = arr[inicio_v01++];
         }
         else{
-
             aux[posLivre++] = arr[inicio_v02];
 
         }
@@ -73,3 +75,5 @@ void merge(int arr[], int startIndex, int mid, int endIndex){
     for(inicio_v01 = startIndex ; inicio_v01 <= endIndex; inicio_v01++){
         arr[inicio_v01]= aux[inicio_v01-startIndex];
     }
+
+}
