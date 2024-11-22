@@ -8,9 +8,10 @@ typedef struct Node {
   struct Node *right;
 } Node;
 
-int filhosAlt(Node *root);
+int level(Node *root);
 
 void shift_right(Node **primary);
+
 void shift_left(Node **primary);
 
 void balance(Node **primary);
@@ -21,7 +22,7 @@ void preordem(Node *root);
 
 void remover(Node **root, int numero);
 
-Node *findMaxRight(Node **node);
+Node *findMaxRight(Node *node);
 
 int main() {
   Node *root = NULL;
@@ -46,63 +47,78 @@ int main() {
   return 0;
 }
 
-int filhosAlt(Node *root) {
+int level(Node *root) {
   if (root == NULL)
     return 0;
   else {
-    int ae = filhosAlt(root->left);
-    int ad = filhosAlt(root->right);
+    int ae = level(root->left);
+    int ad = level(root->right);
     return 1 + (ae > ad ? ae : ad);
   }
 }
 
 void shift_right(Node **primary) {
-  Node *aux = (*primary)->left;
-  (*primary)->left = aux->right;
-  aux->right = (*primary);
-  *primary = aux;
+  Node *newPrimary = (*primary)->left;
+  (*primary)->left = newPrimary->right;
+  newPrimary->right = (*primary);
+  *primary = newPrimary;
 }
 
 void shift_left(Node **primary) {
-  Node *aux = (*primary)->right;
-  (*primary)->right = aux->left;
-  aux->left = (*primary);
-  *primary = aux;
+  Node *newPrimary = (*primary)->right;
+  (*primary)->right = newPrimary->left;
+  newPrimary->left = (*primary);
+  *primary = newPrimary;
 }
 
 void balance(Node **primary) {
+  // Verifica se o nó atual não é nulo
   if(*primary != NULL){
-    Node *aux;
-    int fb = filhosAlt((*primary)->right) - filhosAlt((*primary)->left);
+    Node *aux; // Nó auxiliar para ajudar nas rotações
 
-    if (fb <= -2) {
-      aux = (*primary)->left;
+    // Calcula o fator de balanceamento: diferença entre os níveis da subárvore direita e esquerda
+    int balance = level((*primary)->right) - level((*primary)->left);
 
-      fb = filhosAlt(aux->right) - filhosAlt(aux->left);
+    // Caso o fator de balanceamento seja menor ou igual a -2 (desbalanceamento à esquerda)
+    if (balance <= -2) {
+      aux = (*primary)->left; // Aponta para o nó filho esquerdo
 
-      if (fb >= 1) {
-        shift_left(&((*primary)->left));
-        shift_right(primary);
+      // Calcula o fator de balanceamento do filho esquerdo
+      balance = level(aux->right) - level(aux->left);
+
+      // Caso o filho esquerdo tenha um desbalanceamento positivo (direita), realizamos rotação dupla
+      if (balance >= 1) {
+        shift_left(&((*primary)->left)); // Rotação para a esquerda no filho esquerdo
+        shift_right(primary);           // Rotação para a direita no nó atual
         printf("\nRotação: Dupla Direita");
       } else {
+        // Caso contrário, realizamos apenas uma rotação simples para a direita
         shift_right(primary);
         printf("\nRotação: Direita Simples");
       }
-    } else if (fb >= 2) {
-      aux = (*primary)->right;
-      fb = filhosAlt(aux->right) - filhosAlt(aux->left);
+    } 
+    // Caso o fator de balanceamento seja maior ou igual a 2 (desbalanceamento à direita)
+    else if (balance >= 2) {
+      aux = (*primary)->right; // Aponta para o nó filho direito
 
-      if (fb < 0) {
-        shift_right(&((*primary)->right));
-        shift_left(primary);
+      // Calcula o fator de balanceamento do filho direito
+      balance = level(aux->right) - level(aux->left);
+
+      // Caso o filho direito tenha um desbalanceamento negativo (esquerda), realizamos rotação dupla
+      if (balance < 0) {
+        shift_right(&((*primary)->right)); // Rotação para a direita no filho direito
+        shift_left(primary);              // Rotação para a esquerda no nó atual
         printf("\nRotação: Dupla Esquerda");
-      } else {
+        
+      } else {//balanço == 0 por exemplo
+        // Caso contrário, realizamos apenas uma rotação simples para a esquerda
         shift_left(primary);
         printf("\nRotação: Esquerda Simples");
       }
     }
   }
 }
+
 
 void preordem(Node *root) {
   if (root != NULL) {
@@ -126,19 +142,12 @@ void inserir(Node **root, int n) {
   balance(root);
 }
 
-Node *findMaxRight(Node **node) {
-  if ((*node)->right != NULL)
-    return findMaxRight(&(*node)->right);
-  else {
-    Node *aux = *node;
-    if ((*node)->left != NULL) {
-      *node = (*node)->left;
-    } else {
-      *node = NULL;
-    }
-    return aux;
-  }
+int findLevel(Node **root){
+
 }
+
+
+
 
 void remover(Node **root, int numero) {
   if (*root == NULL) {
@@ -185,4 +194,13 @@ void remover(Node **root, int numero) {
     }
   }
   balance(root);
+}
+
+Node *findMaxRight(Node *node) {
+  // Caso o nó atual tenha um filho à direita, continuamos descendo à direita
+  if (node->right != NULL)
+    return findMaxRight(node->right); // Recursão para o filho à direita
+
+  // Se chegamos aqui, significa que encontramos o nó mais à direita (sem filhos à direita)
+  return node; // Retorna o nó mais à direita
 }

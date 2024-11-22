@@ -42,7 +42,7 @@ int data;
 }Node;
 
 void insertInOrder(Node **root, int data);
-int getLevel(Node **root);
+int level(Node **root);
 void displayInOrder(Node *root);
 void displayPostOrder(Node *root);
 void displayPreOrder(Node *root);
@@ -68,7 +68,7 @@ printf("\n");
 displayPostOrder(root);
 printf("\n");
 
-printf("Altura: %d\n", getLevel(&root));
+printf("Altura: %d\n", level(&root));
 
 
 return 0;
@@ -204,23 +204,13 @@ int travelLeft(Node *root, int level){
     travelLeft(root->left, level++);
    } 
 }
-/**
- * @brief Calculates the height of a binary tree.
- *
- * This function computes the height (or level) of a binary tree recursively.
- * The height of a binary tree is the number of edges on the longest path from 
- * the root node to a leaf node. An empty tree has a height of -1.
- *
- * @param root A double pointer to the root node of the binary tree.
- * @return The height of the binary tree. Returns -1 if the tree is empty.
- */
 
-int getLevel(Node **root){
+int level(Node **root){
 
     if(*root==NULL) return -1;
 
-    int alturaEsquerda = getLevel(&(*root)->left);
-    int alturaDireita = getLevel(&(*root)->right);
+    int alturaEsquerda = level(&(*root)->left);
+    int alturaDireita = level(&(*root)->right);
 
     if(alturaEsquerda > alturaDireita){
         return alturaEsquerda + 1;

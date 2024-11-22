@@ -11,6 +11,9 @@ Combinação: intercalar as duas subsequencias ordenadas pra produzir a soluçã
 #include <stdlib.h>
 #include <stdio.h>
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #define SIZE 10
 
 void mergesort(int arr[], int startIndex, int endIndex);
@@ -34,9 +37,14 @@ int main() {
 }
 
 
+
+
+
 void mergesort(int arr[], int startIndex, int endIndex){
+    //caso base INICIO > FIM
     if (startIndex > endIndex) return;
         
+    //pega o meio do array
     int mid = (startIndex + endIndex) / 2;
     
     mergesort(arr, startIndex, mid);
@@ -44,7 +52,8 @@ void mergesort(int arr[], int startIndex, int endIndex){
     
     merge(arr, startIndex, mid, endIndex);
     
-}
+}   
+
 
 void merge(int arr[], int startIndex, int mid, int endIndex){
     int inicio_v01=startIndex;
@@ -63,13 +72,14 @@ void merge(int arr[], int startIndex, int mid, int endIndex){
         }
     }
 
-
-    while(inicio_v01 <= mid){
-        aux[posLivre++] = arr[inicio_v01++];
+    // Adiciona os elementos caso a lista da direita tenha acabado primeiro
+    while (inicio_v01 <= mid) {
+        newArr[newIndex++] = arr[inicio_v01++];
     }
 
-    while(inicio_v02 <= endIndex){
-        aux[posLivre++] = arr[inicio_v02];
+    // Adiciona os elementos caso a lista da esquerda tenha acabado primeiro
+    while (inicio_v02 <= endIndex) {
+        newArr[newIndex++] = arr[inicio_v02++];
     }
 
     for(inicio_v01 = startIndex ; inicio_v01 <= endIndex; inicio_v01++){

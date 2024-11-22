@@ -21,46 +21,56 @@ int main() {
 
   return 0;
 }
-//Recebe como parametros o array, startIndex e o endIndex
-void quicksort(int arr[], int startIndex, int endIndex) {
 
-//garante que não vamos fazer besteira e serve de caso base!
+
+void quicksort(int arr[], int startIndex, int endIndex) {
+  static int chamadas = 0;
+  chamadas++;
+  printf("\nChamada %d\n", chamadas);
   if (startIndex < endIndex) {
-    
+    printf("\nQuicksort chamado: startIndex=%d, endIndex=%d\n", startIndex, endIndex);
+
     int pivotIndex = partition(arr, startIndex, endIndex);
 
-    //chamada recursiva pra organizar os elementos que vem antes do pivot
-    quicksort(arr, startIndex, pivotIndex - 1);
+    printf("Pivot escolhido: %d (Index: %d)\n", arr[pivotIndex], pivotIndex);
 
-    //chamada recursiva pra organizar os elementos que vem depois do pivot
+    quicksort(arr, startIndex, pivotIndex - 1);
     quicksort(arr, pivotIndex + 1, endIndex);
+    
+  }
+  else{
+    printf("\nChamada %d finalizada\n", chamadas);
   }
 }
 
-//Retorna a posição do elemento pivot
+
+
 int partition(int arr[], int startIndex, int endIndex) {
-  int pivot, pivotIndex;
+  int pivot = arr[startIndex];
+  int pivotIndex = endIndex;
 
-  //nessa versão do quicksort escolhemos o primeiro elemento como pivot
-  pivot = arr[startIndex];
+  printf("\nPartition iniciado: startIndex=%d, endIndex=%d, pivot=%d\n", startIndex, endIndex, pivot);
 
-  pivotIndex = endIndex;
-
-  for (int i = endIndex; i > startIndex; i--)
+  for (int i = endIndex; i > startIndex; i--) {
     if (arr[i] >= pivot) {
+      printf("Swap para mover %d para a direita\n", arr[i]);
       swap(arr, i, pivotIndex);
       pivotIndex--;
     }
+  }
 
-  // Colocamos o pivô na sua posição final
   swap(arr, startIndex, pivotIndex);
+  printf("Pivot %d movido para a posição final: %d\n", pivot, pivotIndex);
 
-  //temos certeza de que essa é a posição final do pivot então retornamos seu indice
   return pivotIndex;
 }
 
+
+
+
 //função auxiliar apenas pra realizar a troca
 void swap(int arr[], int i, int j) {
+  printf("Troca: %d (Index: %d) <-> %d (Index: %d)\n", arr[i], i, arr[j], j);
   int aux = arr[i];
   arr[i] = arr[j];
   arr[j] = aux;
