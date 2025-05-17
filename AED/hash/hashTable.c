@@ -104,3 +104,4 @@ int main() {
     displayTable(); // Exibe o estado atual da tabela hash
 
     printf("\n\nValor na chave 12: %d\n", search(12)); // Busca e exibe o valor da chave 
+}

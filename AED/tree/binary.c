@@ -41,52 +41,52 @@ struct Node *right;
 int data;
 }Node;
 
-void insertInOrder(Node **root, int data);
-int level(Node **root);
-void displayInOrder(Node *root);
-void displayPostOrder(Node *root);
-void displayPreOrder(Node *root);
+void insert_in_order(Node **root, int data);
+int get_level(Node **root);
+void display_in_order(Node *root);
+void display_post_order(Node *root);
+void display_pre_order(Node *root);
 
 static int flag=0;
 
 int main(){
 Node *root=NULL;
 
-insertInOrder(&root, 3);
-insertInOrder(&root, 1);
-insertInOrder(&root, 4);
-insertInOrder(&root, 2);
-insertInOrder(&root, 5);
+insert_in_order(&root, 3);
+insert_in_order(&root, 1);
+insert_in_order(&root, 4);
+insert_in_order(&root, 2);
+insert_in_order(&root, 5);
 
 
-displayPreOrder(root);
+display_pre_order(root);
 printf("\n");
 flag=1;
-displayInOrder(root);
+display_in_order(root);
 flag=1;
 printf("\n");
-displayPostOrder(root);
+display_post_order(root);
 printf("\n");
 
-printf("Altura: %d\n", level(&root));
+printf("Altura: %d\n", get_level(&root));
 
 
 return 0;
 }
 
-void displayInOrder(Node *root){
+void display_in_order(Node *root){
 if(root!=NULL){
     if (flag==0){
         printf("Root: %d\n", root->data);
         flag=1;
     }
-    displayInOrder(root->left);
+    display_in_order(root->left);
     printf("%d - ", root->data);
-    displayInOrder(root->right);
+    display_in_order(root->right);
 }
 }
 
-void displayPreOrder(Node *root){
+void display_pre_order(Node *root){
 
 if(root!=NULL){
     if (flag==0){
@@ -95,27 +95,27 @@ if(root!=NULL){
         return;
     }
     printf("%d -", root->data);
-    displayPreOrder(root->left);
-    displayPreOrder(root->right);
+    display_pre_order(root->left);
+    display_pre_order(root->right);
 }
 
 }
 
-void displayPostOrder(Node *root){
+void display_post_order(Node *root){
 
 if(root!=NULL){
         if (flag==0){
         printf("Root: %d\n", root->data);
         flag=1;
     }
-    displayPostOrder(root->left);
-    displayPostOrder(root->right);
+    display_post_order(root->left);
+    display_post_order(root->right);
     printf("%d -", root->data);
 }
 
 }
 
-void insertInOrder(Node **root, int data){
+void insert_in_order(Node **root, int data){
     if(*root==NULL){
         if(flag==0){
             printf("Root: %d\n", data);
@@ -129,13 +129,13 @@ void insertInOrder(Node **root, int data){
     }
 
     if(data < (*root)->data){
-        insertInOrder(&(*root)->left, data);
+        insert_in_order(&(*root)->left, data);
         printf("Node %d inserted at left!\n", (*root)->data);
         return;
     }
     
     else if(data > (*root)->data){
-        insertInOrder(&(*root)->right, data);
+        insert_in_order(&(*root)->right, data);
         printf("Node %d inserted at right!\n", (*root)->data);
         return;
     }
@@ -155,18 +155,18 @@ int findMax(Node *root) {
 }
 
 
-int busca(Node *root, int target){
+int search(Node *root, int target){
     if(root->data==target){
         return 1;
     }
     else if (root==NULL){
         return 0;
     }
-    else if(root->data < target){
-        busca(root->right, target);
+    else if(target > root->data){
+        search(root->right, target);
     }
     else{
-        busca(root->left, target);
+        search(root->left, target);
     }
 }
 
@@ -187,35 +187,35 @@ Nó possui dois filhos
     Esquerda Vão os menores e direita Maiores
 */
 
-int travelRight(Node *root, int level){
+int travel_right(Node *root, int get_level){
    if(root->right==NULL){
-    return level++;
+    return get_level++;
    }
    else{
-    travelRight(root->right, level++);
+    travel_right(root->right, get_level++);
    } 
 }
 
-int travelLeft(Node *root, int level){
+int travel_left(Node *root, int get_level){
    if(root->left==NULL){
-    return level++;
+    return get_level++;
    }
    else{
-    travelLeft(root->left, level++);
+    travel_left(root->left, get_level++);
    } 
 }
 
-int level(Node **root){
+int get_level(Node **root){
 
     if(*root==NULL) return -1;
 
-    int alturaEsquerda = level(&(*root)->left);
-    int alturaDireita = level(&(*root)->right);
+    int left_height = get_level(&(*root)->left);
+    int right_height = get_level(&(*root)->right);
 
-    if(alturaEsquerda > alturaDireita){
-        return alturaEsquerda + 1;
+    if(left_height > right_height){
+        return left_height + 1;
 
     }else{
-        return alturaDireita + 1;
+        return right_height + 1;
     }
 }

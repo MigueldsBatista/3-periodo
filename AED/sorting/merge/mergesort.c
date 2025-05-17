@@ -1,3 +1,19 @@
+//aplica a tecnica divisão e conquista
+
+/*
+A lógica aqui é a seguinte, no merge sort nós consideramos que os subarrays ja vão estar organizados entre si.
+Ou seja, nos devemos nos preocupar apenas em montalos da forma correta. Pra isso nós criamos um array auxilixar,
+percorremos enquanto não chegamos no final ou ao meio. Depois se por exemplo, 
+ja chegamos ao meio quer dizer que organizamos todos os elementos da esquerda,
+e podemos adicionar os da direita com tranquilidade, apos isso so juntar os elementos
+
+Divisão: divide o array na metade
+
+Conquista
+
+Combinação: intercalar as duas subsequencias ordenadas pra produzir a solução
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

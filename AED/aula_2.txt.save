@@ -1,7 +1,0 @@
-Passagem de parâmetro por valor e por referência
-
-Valozr é são modifições feitas nos argumentos dentro da função e não são refletidas fora dela
-
-Referência é quando usamos ponteiros pra referenciar diretamente a variável que fica disponível na main 
-
-	

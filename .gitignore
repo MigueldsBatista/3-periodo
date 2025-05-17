@@ -1,6 +1,7 @@
 # Ignorar todas as pastas 'output/' no repositório
-/output
+output/
 
 # Ignorar todas as pastas '.vscode/' no repositório
-/.vscode
+.vscode/
+/*.o
 
