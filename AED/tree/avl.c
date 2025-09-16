@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 // https://www.inf.ufsc.br/~aldo.vw/estruturas/simulaltura_direitaor/AVL.html
+// https://www.inf.ufsc.br/~aldo.vw/estruturas/simulador/AVL.html
+
 
 typedef struct Node {
   int data;

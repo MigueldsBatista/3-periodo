@@ -237,6 +237,7 @@ void remove_node(Node **root, int num) {
          7    11   13
 
   */
+ 
   walk = find_max_right_and_disconnect(&(*root)->left);
   //O que estiver a esquerda da árvore vai ser atribuido a walk->left
   walk->left = (*root)->left;
