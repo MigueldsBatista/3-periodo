@@ -86,7 +86,7 @@
             background: linear-gradient(45deg, #ffd89b, #19547b);
         }
 
-        input[type="number"] {
+        input[type="number"], input[type="text"] {
             padding: 10px;
             border: none;
             border-radius: 15px;
@@ -94,6 +94,11 @@
             font-weight: bold;
             text-align: center;
             width: 80px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            text-align: left;
         }
 
         .speed-control {
@@ -248,6 +253,11 @@
             </div>
             
             <div class="control-group">
+                <input type="text" id="bulkValues" placeholder="Ex: 10,20,30,15,25" style="width: 200px;">
+                <button onclick="bulkInsert()">📦 Inserção em Lote</button>
+            </div>
+            
+            <div class="control-group">
                 <button class="balance" onclick="balanceTree()">⚖️ Balancear Árvore</button>
                 <button onclick="generateRandomTree()">🎲 Árvore Aleatória</button>
             </div>
@@ -309,6 +319,7 @@
                 <h3>❓ Como Usar</h3>
                 <div class="help">
                     <strong>Adicionar Nós:</strong> Digite um valor e clique em "Adicionar Nó"<br><br>
+                    <strong>Inserção em Lote:</strong> Digite valores separados por vírgula (ex: 10,20,30,15,25)<br><br>
                     <strong>Arrastar:</strong> Clique e arraste qualquer nó para reposicioná-lo<br><br>
                     <strong>Balancear:</strong> Clique em "Balancear Árvore" para ver a animação<br><br>
                     <strong>Percorrer:</strong> Use os botões de percurso para visualizar diferentes ordens<br><br>
@@ -670,6 +681,50 @@
                 nodes.push(node);
                 this.collectAllNodes(node.left, nodes);
                 this.collectAllNodes(node.right, nodes);
+            }
+
+            async bulkInsert(values) {
+                if (!values || values.length === 0) return;
+                
+                this.updateStatus(`Inserindo ${values.length} nós em lote...`);
+                this.isAnimating = true;
+                
+                for (let i = 0; i < values.length; i++) {
+                    const value = values[i];
+                    this.updateStatus(`Inserindo nó ${value} (${i + 1}/${values.length})...`);
+                    
+                    // Inserir o nó
+                    this.insertNode(value);
+                    
+                    // Destacar o nó recém-inserido
+                    const newNode = this.findNode(this.root, value);
+                    if (newNode) {
+                        newNode.highlighted = true;
+                        this.draw();
+                        await this.delay(600 / this.animationSpeed);
+                        newNode.highlighted = false;
+                        newNode.visited = true;
+                        this.draw();
+                        await this.delay(400 / this.animationSpeed);
+                    }
+                }
+                
+                // Limpar destacamentos
+                this.clearHighlights();
+                this.updateStatus(`Inserção em lote concluída! ${values.length} nós adicionados.`);
+                this.updateTreeInfo();
+                this.isAnimating = false;
+            }
+
+            findNode(node, value) {
+                if (node === null) return null;
+                if (node.value === value) return node;
+                
+                if (value < node.value) {
+                    return this.findNode(node.left, value);
+                } else {
+                    return this.findNode(node.right, value);
+                }
             }
 
             delay(ms) {
@@ -1053,6 +1108,11 @@
 
         // Funções globais chamadas pelos botões
         function addNode() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
             const input = document.getElementById('nodeValue');
             const value = parseInt(input.value);
             
@@ -1072,6 +1132,11 @@
         }
 
         function removeNode() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
             const input = document.getElementById('nodeValue');
             const value = parseInt(input.value);
             
@@ -1091,6 +1156,11 @@
         }
 
         function clearTree() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
             if (visualizer.isAnimating) {
                 alert('Aguarde a animação terminar');
                 return;
@@ -1099,6 +1169,11 @@
         }
 
         function balanceTree() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
             if (visualizer.isAnimating) {
                 alert('Animação de balanceamento já em andamento');
                 return;
@@ -1107,11 +1182,68 @@
         }
 
         function generateRandomTree() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
             if (visualizer.isAnimating) {
                 alert('Aguarde a animação terminar');
                 return;
             }
             visualizer.generateRandomTree();
+        }
+
+        function bulkInsert() {
+            if (!visualizer) {
+                alert('Aplicativo ainda não foi carregado completamente. Tente novamente.');
+                return;
+            }
+            
+            const input = document.getElementById('bulkValues');
+            const valuesString = input.value.trim();
+            
+            if (!valuesString) {
+                alert('Por favor, insira valores separados por vírgula (ex: 10,20,30,15,25)');
+                return;
+            }
+            
+            if (visualizer.isAnimating) {
+                alert('Aguarde a animação terminar antes de fazer inserção em lote');
+                return;
+            }
+            
+            // Processar e validar os valores
+            const values = valuesString.split(',').map(v => v.trim()).filter(v => v !== '');
+            const validValues = [];
+            const invalidValues = [];
+            
+            for (const valueStr of values) {
+                const value = parseInt(valueStr);
+                if (isNaN(value) || value < 1 || value > 100) {
+                    invalidValues.push(valueStr);
+                } else if (!visualizer.findNode(visualizer.root, value)) {
+                    // Verificar se o valor já existe na árvore
+                    validValues.push(value);
+                }
+            }
+            
+            if (invalidValues.length > 0) {
+                alert(`Valores inválidos encontrados: ${invalidValues.join(', ')}\nApenas valores entre 1 e 100 são aceitos.`);
+                return;
+            }
+            
+            if (validValues.length === 0) {
+                alert('Nenhum valor novo para inserir. Todos os valores já existem na árvore ou são inválidos.');
+                return;
+            }
+            
+            // Confirmar inserção
+            const confirmMsg = `Inserir ${validValues.length} nós: [${validValues.join(', ')}]?`;
+            if (confirm(confirmMsg)) {
+                visualizer.bulkInsert(validValues);
+                input.value = '';
+            }
         }
 
         function inOrderTraversal() {
@@ -1157,7 +1289,7 @@
 
         function stepForward() {
             visualizer.stepForward();
-        }
+        }   
 
         // Atalhos de teclado
         document.addEventListener('keydown', (event) => {
@@ -1167,6 +1299,8 @@
                         addNode();
                     } else if (document.activeElement.id === 'searchValue') {
                         searchNode();
+                    } else if (document.activeElement.id === 'bulkValues') {
+                        bulkInsert();
                     }
                     break;
                 case ' ':
